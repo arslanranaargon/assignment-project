@@ -9,6 +9,7 @@ export interface TaskProps {
     country: string;
     previewUrl:string;
     colors: any;
+    gender:string
 }
 
 export interface UserProps {

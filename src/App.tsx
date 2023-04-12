@@ -6,7 +6,7 @@ import CreateTodoForm from "./forms/CreateTodoForm";
 import CreateUserForm from "./forms/CreateUserForm";
 import { TaskProvider } from "./context/TaskContext";
 import { UserProvider } from "./context/UserContext";
-import TaskListNew from "./pages/TaskListNew";
+import TaskList from "./pages/TaskList";
 import UserListNew from "./pages/UserListNew";
 import { CurrentTaskProvider } from "./context/CurrentTaskContext";
 
@@ -56,7 +56,7 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <TaskListNew openCreateTaskModal={openCreateTaskModal} />
+                  <TaskList openCreateTaskModal={openCreateTaskModal} />
                 }
               />
               <Route path="/users" element={<UserListNew />} />

@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Link, Divider } from "@chakra-ui/react";
+import { Box, Flex, Text, Link, useBreakpointValue } from "@chakra-ui/react";
 
 import { HeaderProps } from "../utils/types";
 import { useNavigate } from "react-router";
@@ -29,6 +29,17 @@ export default function Header({
     setCurrentTask("");
     openCreateTaskModal(event);
   }
+
+  const linkMarginLeft = useBreakpointValue({
+    base: "0",
+    md: "auto",
+    lg: "1100px",
+  });
+  const flexDirection = useBreakpointValue<any | undefined>({
+    base: "column",
+    md: "row",
+  });
+
   return (
     <Box
       bg="blue.800"
@@ -39,13 +50,13 @@ export default function Header({
         position: "sticky",
         top: 0,
         zIndex: 1,
-        height: "80px"
+        height: "80px",
       }}
     >
       <Flex
         justifyContent="space-between"
         alignItems="center"
-        flexDirection={{ xs: "column", sm: "column", md: "row" }}
+        flexDirection={flexDirection}
       >
         {location.pathname.includes("/users") && (
           <Link
@@ -55,7 +66,6 @@ export default function Header({
             justifySelf="center"
             p={2}
             color="white"
-            
           >
             Create a new User
           </Link>
@@ -68,30 +78,11 @@ export default function Header({
             href="#create-new-task"
             p={2}
             color="white"
-            marginLeft="1100px"
+            marginLeft={linkMarginLeft}
           >
             <Text fontSize="30px">Create a new Task</Text>
           </Link>
         )}
-        {/* <Link
-          textDecor="none"
-          onClick={redirectToListOfTasks}
-          href="#list-of-tasks"
-          p={2}
-          color="white"
-        >
-          List of Tasks
-        </Link> */}
-        {/* <Link
-          textDecor="none"
-          onClick={redirectToListOfUsers}
-          href="#list-of-tasks"
-          p={2}
-          color="white"
-          justifyContent="left"
-        >
-          List of Users
-        </Link> */}
       </Flex>
     </Box>
   );

@@ -9,9 +9,13 @@ import {
   ModalHeader,
   Stack,
   Select as SimpleSelect,
+  RadioGroup,
+  Radio,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { useContext, useState } from "react";
 
@@ -28,14 +32,7 @@ import { generateID } from "../utils/generateId";
 import CurrentTaskContext from "../context/CurrentTaskContext";
 import { dateFormatter } from "../utils/dateFormatter";
 import Select from "react-select";
-
-const optionList = [
-  { value: "red", label: "Red" },
-  { value: "green", label: "Green" },
-  { value: "yellow", label: "Yellow" },
-  { value: "blue", label: "Blue" },
-  { value: "white", label: "White" },
-];
+import { optionList } from "../data/DropDownOptions";
 
 const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -64,22 +61,20 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   }
 
   const onSubmit = (data: TaskProps) => {
-    data.id = map.has("id") ? map.get("id") : generateID();
-    data.startTime = dateFormatter(data.startTime);
-    data.endTime = dateFormatter(data.endTime);
-    data.colors = selectedOptions ? selectedOptions : map.get("colors");
+    const { startTime, endTime } = data;
 
-    if (previewUrl) {
-      data.previewUrl = previewUrl;
-    } else if (map.has("previewUrl")) {
-      data.previewUrl = map.get("previewUrl");
-    }
+    data.id = map.has("id") ? map.get("id") : generateID();
+    data.startTime = dateFormatter(startTime);
+    data.endTime = dateFormatter(endTime);
+    data.colors = selectedOptions || map.get("colors");
+    data.previewUrl = previewUrl || map.get("previewUrl");
 
     if (map.has("id")) {
-      let taskIndex = tasksArray.findIndex(
-        (task: any) => task.id === map.get("id")
-      );
-      tasksArray[taskIndex] = data;
+      tasksArray.forEach((task: any, index: number) => {
+        if (task.id === map.get("id")) {
+          tasksArray[index] = data;
+        }
+      });
     } else {
       tasksArray.push(data);
     }
@@ -171,7 +166,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           </FormControl>
         </Stack>
 
-        <FormControl mt={4} id="timeEstimation" isRequired>
+        <FormControl mt={4} id="colors" isRequired>
           <FormLabel>Favourite Color</FormLabel>
           <Select
             options={optionList}
@@ -186,6 +181,25 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           />
         </FormControl>
 
+        <Controller
+          name="gender"
+          control={control}
+          defaultValue="male"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <RadioGroup
+              onChange={(e) => field.onChange(e)}
+              value={map.get("gender")}
+              defaultValue={map.get("gender")}
+            >
+              <FormLabel marginTop="20px">Gender</FormLabel>
+              <Stack direction="row" justifyContent="space-around">
+                <Radio value="male">Male</Radio>
+                <Radio value="female">Female</Radio>
+              </Stack>
+            </RadioGroup>
+          )}
+        />
         <ChakraFileUpload
           control={control}
           name="file"
