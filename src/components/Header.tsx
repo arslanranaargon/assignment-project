@@ -29,7 +29,6 @@ export default function Header({
     setCurrentTask("");
     openCreateTaskModal(event);
   }
-  console.log(location.pathname);
   return (
     <Box
       bg="blue.800"
@@ -40,7 +39,7 @@ export default function Header({
         position: "sticky",
         top: 0,
         zIndex: 1,
-        height: "80px",
+        height: "80px"
       }}
     >
       <Flex
@@ -53,8 +52,10 @@ export default function Header({
             textDecor="none"
             onClick={openCreateUserModal}
             href="#create-new-user"
+            justifySelf="center"
             p={2}
             color="white"
+            
           >
             Create a new User
           </Link>
@@ -67,11 +68,12 @@ export default function Header({
             href="#create-new-task"
             p={2}
             color="white"
+            marginLeft="1100px"
           >
-            Create a new Task
+            <Text fontSize="30px">Create a new Task</Text>
           </Link>
         )}
-        <Link
+        {/* <Link
           textDecor="none"
           onClick={redirectToListOfTasks}
           href="#list-of-tasks"
@@ -79,8 +81,8 @@ export default function Header({
           color="white"
         >
           List of Tasks
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           textDecor="none"
           onClick={redirectToListOfUsers}
           href="#list-of-tasks"
@@ -89,7 +91,7 @@ export default function Header({
           justifyContent="left"
         >
           List of Users
-        </Link>
+        </Link> */}
       </Flex>
     </Box>
   );

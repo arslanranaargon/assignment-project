@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
-import { Box, Button, Heading, HStack, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Image,
+  list,
+  Text,
+} from "@chakra-ui/react";
 import VerticalFlexCardGeneric from "../components/VerticalFlexCardGeneric";
 import { TaskContext } from "../context/TaskContext";
-import useModalState from "../hooks/useModalState";
 import CurrentTaskContext from "../context/CurrentTaskContext";
-
+import moment from "moment";
 interface TaskListNewProps {
   openCreateTaskModal: () => void;
 }
@@ -16,7 +23,7 @@ const TaskListNew: React.FC<TaskListNewProps> = ({ openCreateTaskModal }) => {
   if (!taskContext) {
     throw new Error("Context must be used within a CurrentTaskProvider");
   }
-  const { currentTask, setCurrentTask } = taskContext;
+  const { setCurrentTask } = taskContext;
   const handleDelete = (taskId: number) => {
     setTaskArray(tasksArray.filter((task: any) => task.id !== taskId));
   };
@@ -26,24 +33,55 @@ const TaskListNew: React.FC<TaskListNewProps> = ({ openCreateTaskModal }) => {
       <Heading as="h1">List of Tasks</Heading>
       {tasksArray.map((task: any) => (
         <VerticalFlexCardGeneric key={task.id}>
-          <Text fontSize="30px">
-            <b>Description:</b>
-          </Text>
-          <Text fontSize="20px">{task.description}</Text>
+          <HStack>
+            <Text fontSize="30px">
+              <b>{task?.description}:</b>
+            </Text>
+          </HStack>
+          <HStack>
+            <Text fontSize="20px">Start Time is</Text>
+            <Text fontSize="20px">
+              {moment(task.startTime).format("MMMM Do YYYY, h:mm:ss a")}
+            </Text>
 
-          <Text fontSize="20px">Start Time:</Text>
-          <Text>{task.startTime.toLocaleString()}</Text>
-
-          <Text fontSize="20px">End Time:</Text>
-          <Text fontSize="20px">{task.endTime}</Text>
-
-          <Text fontSize="20px">Time Estimation:</Text>
-          <Text fontSize="20px">{task.timeEstimation.toLocaleString()}</Text>
+            <Text fontSize="20px">and the End Time:</Text>
+            <Text fontSize="20px">
+              {moment(task.endTime).format("MMMM Do YYYY, h:mm:ss a")}
+            </Text>
+          </HStack>
           {task.previewUrl && (
             <Box mt={4}>
-              <Image src={task.previewUrl} alt="Preview" maxW="300px" />
+              <Image src={task?.previewUrl} alt="Preview" maxW="300px" />
             </Box>
           )}
+          <HStack>
+            <Text fontSize="20px">Favourite Colors:</Text>
+            <Text fontSize="20px">
+              {
+                <ul>
+                  {task?.colors?.length ? (
+                    task?.colors.map((color: any) => (
+                      <li
+                        style={{
+                          display: "inline-block",
+                        }}
+                      >
+                        {`${color.value} , `}
+                      </li>
+                    ))
+                  ) : (
+                    <p>no color selected</p>
+                  )}
+                </ul>
+              }
+            </Text>
+          </HStack>
+          <HStack>
+            <Text fontSize="20px">Time Estimate for the task is</Text>
+            <Text fontSize="20px">{`${task?.timeEstimation},`}</Text>
+            <Text fontSize="20px"> and the working country is</Text>
+            <Text fontSize="20px">{task?.country || "Pakistan"}</Text>
+          </HStack>
           <HStack>
             <Button
               colorScheme="teal"

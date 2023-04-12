@@ -6,7 +6,12 @@
     "endTime": "2023-04-06T12:00:00",
     "timeEstimation": "3 hours",
     "createdAt": "2023-04-05T10:00:00",
-    "updatedAt": "2023-04-05T10:00:00"
+    "updatedAt": "2023-04-05T10:00:00",
+    "colors": [
+      { "value": "red", "label": "Red" },
+      { "value": "green", "label": "Green" },
+      { "value": "yellow", "label": "Yellow" }
+    ]
   },
   {
     "id": 2,
@@ -15,7 +20,11 @@
     "endTime": "2023-04-07T16:00:00",
     "timeEstimation": "3 hours",
     "createdAt": "2023-04-05T10:00:00",
-    "updatedAt": "2023-04-05T10:00:00"
+    "updatedAt": "2023-04-05T10:00:00",
+    "colors": [
+      { "value": "blue", "label": "Blue" },
+      { "value": "white", "label": "White" }
+    ]
   },
   {
     "id": 3,
@@ -24,7 +33,11 @@
     "endTime": "2023-04-08T12:00:00",
     "timeEstimation": "2 hours",
     "createdAt": "2023-04-05T10:00:00",
-    "updatedAt": "2023-04-05T10:00:00"
+    "updatedAt": "2023-04-05T10:00:00",
+    "colors": [
+      { "value": "pink", "label": "Pink" },
+      { "value": "grey", "label": "Grey" }
+    ]
   },
   {
     "id": 4,

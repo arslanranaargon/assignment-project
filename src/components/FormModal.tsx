@@ -15,14 +15,14 @@ import { FormModalProps } from "../utils/types";
 
 function FormModal({ children, isOpen, onClose }: FormModalProps) {
   return (
-    <Card bg="blackAlpha.300">
+    <Card >
       <Modal isOpen={isOpen} onClose={onClose} size="md">
         <Card backgroundColor="aqua">
           <ModalOverlay />
           <ModalContent bg="white" borderRadius="md">
             <ModalCloseButton />
-            <ModalBody bg="black">{children}</ModalBody>
-            <ModalFooter bg="black">
+            <ModalBody >{children}</ModalBody>
+            <ModalFooter >
               * You need to fill all the input fields
             </ModalFooter>
           </ModalContent>

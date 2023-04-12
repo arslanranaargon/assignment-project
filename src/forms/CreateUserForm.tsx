@@ -26,7 +26,6 @@ const CreateUserForm = ({ onClose, title }: ModaleProps) => {
 
   const onSubmit = (data: UserProps) => {
     data.id = generateID();
-    console.log(data, title);
     setUsersArray([...usersArray, data]);
     onClose();
   };

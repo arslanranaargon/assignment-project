@@ -7,16 +7,13 @@ import {
   ModalFooter,
   Button,
   ModalHeader,
-  ModalProps,
   Stack,
-  Select,
-  Box,
-  Image,
+  Select as SimpleSelect,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
 
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import { TaskContext } from "../context/TaskContext";
 
@@ -30,30 +27,47 @@ import ChakraFileUpload from "../components/ChakraFileUpload";
 import { generateID } from "../utils/generateId";
 import CurrentTaskContext from "../context/CurrentTaskContext";
 import { dateFormatter } from "../utils/dateFormatter";
+import Select from "react-select";
+
+const optionList = [
+  { value: "red", label: "Red" },
+  { value: "green", label: "Green" },
+  { value: "yellow", label: "Yellow" },
+  { value: "blue", label: "Blue" },
+  { value: "white", label: "White" },
+];
 
 const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState();
 
   const {
     register,
-
     handleSubmit,
-
     control,
-
     formState: { errors },
   } = useForm<TaskProps>({ resolver: yupResolver(TaskFormSchema) });
+
   const taskContext = useContext(CurrentTaskContext);
+
   if (!taskContext) {
     throw new Error("Context must be used within a CurrentTaskProvider");
   }
+
   const { currentTask } = taskContext;
+  const { tasksArray, setTaskArray } = useContext(TaskContext);
 
   const map = new Map(Object.entries(currentTask));
+
+  function handleSelect(data: any) {
+    setSelectedOptions(data);
+  }
+
   const onSubmit = (data: TaskProps) => {
-    data.id = generateID();
+    data.id = map.has("id") ? map.get("id") : generateID();
     data.startTime = dateFormatter(data.startTime);
     data.endTime = dateFormatter(data.endTime);
+    data.colors = selectedOptions ? selectedOptions : map.get("colors");
 
     if (previewUrl) {
       data.previewUrl = previewUrl;
@@ -61,15 +75,18 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
       data.previewUrl = map.get("previewUrl");
     }
 
-    const updatedTasks = tasksArray.filter(
-      (task: any) => task.id !== map.get("id")
-    );
+    if (map.has("id")) {
+      let taskIndex = tasksArray.findIndex(
+        (task: any) => task.id === map.get("id")
+      );
+      tasksArray[taskIndex] = data;
+    } else {
+      tasksArray.push(data);
+    }
 
-    setTaskArray([...updatedTasks, data]);
+    setTaskArray(tasksArray);
     onClose();
   };
-  console.log(previewUrl);
-  const { tasksArray, setTaskArray } = useContext(TaskContext);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,7 +155,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           <FormControl mt={4} id="timeEstimation" isRequired>
             <FormLabel>Country of origin</FormLabel>
 
-            <Select
+            <SimpleSelect
               size="lg"
               {...register("country", { required: true })}
               defaultValue={map.get("country")}
@@ -150,9 +167,24 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
               <option value="france">France</option>
 
               <option value="turkey">Turkey</option>
-            </Select>
+            </SimpleSelect>
           </FormControl>
         </Stack>
+
+        <FormControl mt={4} id="timeEstimation" isRequired>
+          <FormLabel>Favourite Color</FormLabel>
+          <Select
+            options={optionList}
+            value={
+              selectedOptions && selectedOptions.length
+                ? selectedOptions
+                : currentTask?.colors
+            }
+            onChange={handleSelect}
+            isSearchable={true}
+            isMulti={true}
+          />
+        </FormControl>
 
         <ChakraFileUpload
           control={control}
@@ -160,7 +192,6 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           setPreviewUrl={setPreviewUrl}
           previewUrl={previewUrl}
         />
-
         <ModalFooter>
           <Button colorScheme="teal" type="submit">
             {currentTask ? "Update" : "Create"}

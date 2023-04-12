@@ -7,7 +7,8 @@ export interface TaskProps {
     endTime: string;
     timeEstimation: string;
     country: string;
-    previewUrl:string
+    previewUrl:string;
+    colors: any;
 }
 
 export interface UserProps {
