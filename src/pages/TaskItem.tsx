@@ -14,7 +14,7 @@ import { ColorProps, TaskProps } from "../utils/types";
 
 interface TaskItemProps {
   task: TaskProps;
-  setCurrentTask: React.Dispatch<React.SetStateAction<TaskProps | undefined>>;
+  setCurrentTask: React.Dispatch<React.SetStateAction<TaskProps | any>>;
   openCreateTaskModal: () => void;
   handleDelete: (id: string | number) => void;
 }
