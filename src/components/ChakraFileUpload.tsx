@@ -14,8 +14,8 @@ import { Control, Controller, FieldValues } from "react-hook-form";
 interface ChakraFileUploadProps<T> {
   control: Control<T>;
   name: string;
-  setPreviewUrl: any;
-  previewUrl: any;
+  setPreviewUrl: (url: string | null) => void;
+  previewUrl: string;
 }
 
 const ChakraFileUpload = <T,>({

@@ -1,42 +1,51 @@
 import { MouseEventHandler, ReactNode } from "react";
 
 export interface TaskProps {
-    id:any
-    description: string;
-    startTime: string;
-    endTime: string;
-    timeEstimation: string;
-    country: string;
-    previewUrl:string;
-    colors: any;
-    gender:string
+  id: string | number;
+  description: string;
+  startTime: string;
+  endTime: string;
+  timeEstimation: string;
+  createdAt: string;
+  updatedAt: string;
+  colors: {
+    value: string;
+    label: string;
+  }[];
+  gender: string;
+  previewUrl?: string;
 }
 
 export interface UserProps {
-    id:any
-    lastName: string;
-    firstName: string;
-    email: string;
-    phone: string;
-    tasks: TaskProps[];
+  id: string | number;
+  lastName: string;
+  firstName: string;
+  email: string;
+  phone: string;
+  avatarUrl?: String;
 }
 
 export interface FormModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
 }
 
 export interface HeaderProps {
-    openCreateTaskModal: MouseEventHandler;
-    openCreateUserModal: MouseEventHandler;
+  openCreateTaskModal: MouseEventHandler;
+  openCreateUserModal: MouseEventHandler;
 }
 
 export interface ReactNodeProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export interface ModaleProps {
-    onClose: () => void;
-    title: string;
+  onClose: () => void;
+  title: string;
+}
+
+export interface ColorProps {
+  value: string;
+  label: string;
 }

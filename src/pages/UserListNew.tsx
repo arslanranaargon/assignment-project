@@ -2,18 +2,19 @@ import React, { useContext } from "react";
 import { Button, Heading, HStack } from "@chakra-ui/react";
 import VerticalFlexCardGeneric from "../components/VerticalFlexCardGeneric";
 import { UserContext } from "../context/UserContext";
+import { UserProps } from "../utils/types";
 
 const UserListNew: React.FC = () => {
   const { usersArray, setUsersArray } = useContext(UserContext);
 
   const handleDelete = (userId: number) => {
-    setUsersArray(usersArray.filter((user: any) => user.id !== userId));
+    setUsersArray(usersArray.filter((user: UserProps) => user.id !== userId));
   };
 
   return (
     <>
       <Heading as="h1">List of Users</Heading>
-      {usersArray.map((user: any) => (
+      {usersArray.map((user: UserProps) => (
         <VerticalFlexCardGeneric key={user.email}>
           <HStack>
             <span>First Name:</span>

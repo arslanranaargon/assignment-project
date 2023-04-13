@@ -35,7 +35,7 @@ export default function Header({
     md: "auto",
     lg: "1100px",
   });
-  const flexDirection = useBreakpointValue<any | undefined>({
+  const flexDirection = useBreakpointValue<"column" | "row">({
     base: "column",
     md: "row",
   });

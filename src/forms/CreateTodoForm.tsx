@@ -56,7 +56,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
 
   const map = new Map(Object.entries(currentTask));
 
-  function handleSelect(data: any) {
+  function handleSelect(data: TaskProps) {
     setSelectedOptions(data);
   }
 
@@ -70,7 +70,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
     data.previewUrl = previewUrl || map.get("previewUrl");
 
     if (map.has("id")) {
-      tasksArray.forEach((task: any, index: number) => {
+      tasksArray.forEach((task: TaskProps, index: number) => {
         if (task.id === map.get("id")) {
           tasksArray[index] = data;
         }
@@ -155,13 +155,13 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
               {...register("country", { required: true })}
               defaultValue={map.get("country")}
             >
-              <option value="pakistan">Pakistan</option>
+              <option value="Pakistan">Pakistan</option>
 
-              <option value="england">England</option>
+              <option value="England">England</option>
 
-              <option value="france">France</option>
+              <option value="France">France</option>
 
-              <option value="turkey">Turkey</option>
+              <option value="Turkey">Turkey</option>
             </SimpleSelect>
           </FormControl>
         </Stack>
@@ -200,6 +200,8 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
             </RadioGroup>
           )}
         />
+        {errors.gender && <p>{errors.gender.message}</p>}
+
         <ChakraFileUpload
           control={control}
           name="file"

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
   Image,
   Stack,
   Text,
@@ -9,13 +10,21 @@ import {
 } from "@chakra-ui/react";
 import VerticalFlexCard from "../components/VerticalFlexCardGeneric";
 import moment from "moment";
+import { ColorProps, TaskProps } from "../utils/types";
+
+interface TaskItemProps {
+  task: TaskProps;
+  setCurrentTask: React.Dispatch<React.SetStateAction<TaskProps | undefined>>;
+  openCreateTaskModal: () => void;
+  handleDelete: (id: string | number) => void;
+}
 
 const TaskItem = ({
   task,
   setCurrentTask,
   openCreateTaskModal,
   handleDelete,
-}: any) => {
+}: TaskItemProps) => {
   const fontSizeResponsive = useBreakpointValue({ base: "md", md: "20px" });
 
   return (
@@ -38,10 +47,12 @@ const TaskItem = ({
             />
           </Box>
         )}
-        <Box fontSize={fontSizeResponsive}>
+        <HStack fontSize={fontSizeResponsive}>
+          <Text>Favourite Colors:</Text>
+
           <ul>
             {task?.colors?.length ? (
-              task?.colors.map((color: any, index: number) => (
+              task?.colors.map((color: ColorProps, index: number) => (
                 <li
                   key={`${task.id}-${color.value}-${index}`}
                   style={{ display: "inline-block" }}
@@ -53,7 +64,11 @@ const TaskItem = ({
               </li>
             )}
           </ul>
-        </Box>
+        </HStack>
+        <HStack fontSize={fontSizeResponsive}>
+          <Text>Gender:</Text>
+          <Text>{task?.gender}</Text>
+        </HStack>
         <Text fontSize={fontSizeResponsive}>
           Time Estimate for the task is {`${task?.timeEstimation},`} and the
           working country is {task?.country || "Pakistan"}

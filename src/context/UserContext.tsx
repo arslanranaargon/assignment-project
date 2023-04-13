@@ -1,9 +1,23 @@
-import React, { createContext, useState } from "react";
-export const UserContext = createContext([] as any);
-import Users from "../data/Users.json";
+import React, { ReactNode, createContext, useState } from "react";
+import users from "../data/Users";
+import { UserProps } from "../utils/types";
 
-export function UserProvider({ children }: any) {
-  const [usersArray, setUsersArray] = useState(Users);
+interface UserContextValue {
+  usersArray: UserProps[];
+  setUsersArray: React.Dispatch<React.SetStateAction<UserProps[]>>;
+}
+
+interface UserProviderProps {
+  children: ReactNode;
+}
+
+export const UserContext = createContext<UserContextValue>({
+  usersArray: [],
+  setUsersArray: () => {},
+});
+
+export function UserProvider({ children }: UserProviderProps) {
+  const [usersArray, setUsersArray] = useState<UserProps[]>([...users]);
 
   return (
     <UserContext.Provider value={{ usersArray, setUsersArray }}>

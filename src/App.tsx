@@ -9,6 +9,8 @@ import { UserProvider } from "./context/UserContext";
 import TaskList from "./pages/TaskList";
 import UserListNew from "./pages/UserListNew";
 import { CurrentTaskProvider } from "./context/CurrentTaskContext";
+import Layout from "./pages/Layout";
+import SimpleGridLayout from "./pages/SimpleGridLayout";
 
 function App() {
   const {
@@ -55,11 +57,11 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={
-                  <TaskList openCreateTaskModal={openCreateTaskModal} />
-                }
+                element={<TaskList openCreateTaskModal={openCreateTaskModal} />}
               />
+              <Route path="/layout" element={<Layout />} />
               <Route path="/users" element={<UserListNew />} />
+              <Route path="/simple-grid" element={<SimpleGridLayout />} />
             </Routes>
           </CurrentTaskProvider>
         </UserProvider>
