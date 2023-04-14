@@ -14,6 +14,7 @@ export interface TaskProps {
   }[];
   gender: string;
   previewUrl?: string;
+  country: string;
 }
 
 export interface UserProps {

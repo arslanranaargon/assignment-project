@@ -29,10 +29,10 @@ function App() {
       <TaskProvider>
         <UserProvider>
           <CurrentTaskProvider>
-            <Header
+            {/* <Header
               openCreateTaskModal={openCreateTaskModal}
               openCreateUserModal={openCreateUserModal}
-            />
+            /> */}
 
             <FormModal
               isOpen={isCreateTaskModalOpen}
@@ -55,11 +55,11 @@ function App() {
             </FormModal>
 
             <Routes>
-              <Route
+              {/* <Route
                 path="/"
                 element={<TaskList openCreateTaskModal={openCreateTaskModal} />}
-              />
-              <Route path="/layout" element={<Layout />} />
+              /> */}
+              <Route path="/" element={<Layout openCreateTaskModal={openCreateTaskModal}/>} />
               <Route path="/users" element={<UserListNew />} />
               <Route path="/simple-grid" element={<SimpleGridLayout />} />
             </Routes>

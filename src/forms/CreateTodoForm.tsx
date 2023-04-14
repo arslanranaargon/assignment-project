@@ -31,13 +31,33 @@ import ChakraFileUpload from "../components/ChakraFileUpload";
 import { generateID } from "../utils/generateId";
 import CurrentTaskContext from "../context/CurrentTaskContext";
 import { dateFormatter } from "../utils/dateFormatter";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import { optionList } from "../data/DropDownOptions";
 
 const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedOptions, setSelectedOptions] = useState();
 
+  type OptionType = {
+    value: string;
+    label: string;
+  };
+
+  const customStyles: StylesConfig<OptionType, true> = {
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? "white" : "black",
+      backgroundColor: state.isSelected ? "blue" : "white",
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "blue",
+    }),
+    multiValueLabel: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+  };
   const {
     register,
     handleSubmit,
@@ -56,7 +76,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
 
   const map = new Map(Object.entries(currentTask));
 
-  function handleSelect(data: TaskProps) {
+  function handleSelect(data: any) {
     setSelectedOptions(data);
   }
 
@@ -178,6 +198,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
             onChange={handleSelect}
             isSearchable={true}
             isMulti={true}
+            styles={customStyles}
           />
         </FormControl>
 
@@ -189,13 +210,18 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           render={({ field }) => (
             <RadioGroup
               onChange={(e) => field.onChange(e)}
-              value={map.get("gender")}
               defaultValue={map.get("gender")}
             >
-              <FormLabel marginTop="20px">Gender</FormLabel>
-              <Stack direction="row" justifyContent="space-around">
-                <Radio value="male">Male</Radio>
-                <Radio value="female">Female</Radio>
+              <FormLabel marginTop="20px" fontWeight="bold">
+                Gender
+              </FormLabel>
+              <Stack direction="row" spacing={4} alignItems="center">
+                <Radio value="male" colorScheme="green">
+                  Male
+                </Radio>
+                <Radio value="female" colorScheme="green">
+                  Female
+                </Radio>
               </Stack>
             </RadioGroup>
           )}

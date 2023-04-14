@@ -1,23 +1,33 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import { Box, Flex, Grid, GridItem, Link, Text } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import TaskList from "./TaskList";
+import CurrentTaskContext from "../context/CurrentTaskContext";
 
-const Layout = () => {
+interface TaskListProps {
+  openCreateTaskModal: () => void;
+}
+
+const Layout: React.FC<TaskListProps> = ({ openCreateTaskModal }) => {
+  const taskContext = useContext(CurrentTaskContext);
+
+  if (!taskContext) {
+    throw new Error("Context must be used within a CurrentTaskProvider");
+  }
+
+  const { setCurrentTask } = taskContext;
+
+  function handleClick(event: React.MouseEvent) {
+    setCurrentTask("");
+    openCreateTaskModal();
+  }
   return (
-    <Box
-
-    // sets the height to 800px on extra-small screens (base),
-    // 900px on small screens (sm),
-    // 1000px on medium screens (md),
-    // 1100px on large screens (lg),
-    // 1200px on extra-large screens (xl),
-    // and 1300px on 2-extra-large screens (2xl)
-    >
+    <Box>
       <Grid
         templateAreas={`"header header"
                       "nav main"
-                      "nav footer"`}
-        gridTemplateRows={"50px 1fr 100px"}
-        gridTemplateColumns={"150px 1fr"}
+                      `}
+        gridTemplateRows={"80px 1fr "}
+        gridTemplateColumns={"0px 1fr"}
         gap="3"
         color="blackAlpha.700"
         fontWeight="bold"
@@ -30,17 +40,24 @@ const Layout = () => {
           "2xl": "calc(var(--vh, 1vh) * 100)",
         }}
       >
-        <GridItem pl="2" bg="orange.300" area={"header"}>
-          Header
+        <GridItem pl="2" bg="black.300" area={"header"}>
+          <Flex justifyContent="center" alignContent="center">
+            <Link
+              textDecor="none"
+              onClick={(event) => handleClick(event)}
+              href="#create-new-task"
+              p={2}
+              color="white"
+            >
+              <Text fontSize="22px">Create a new Task</Text>
+            </Link>
+          </Flex>
         </GridItem>
-        <GridItem pl="2" bg="pink.300" area={"nav"}>
+        {/* <GridItem pl="2" bg="pink.300" area={"nav"}>
           Nav
-        </GridItem>
+        </GridItem> */}
         <GridItem pl="2" bg="green.300" area={"main"}>
-          Main
-        </GridItem>
-        <GridItem pl="2" bg="blue.300" area={"footer"}>
-          Footer
+          <TaskList openCreateTaskModal={openCreateTaskModal} />
         </GridItem>
       </Grid>
     </Box>
