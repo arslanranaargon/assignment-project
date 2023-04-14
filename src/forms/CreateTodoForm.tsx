@@ -189,7 +189,6 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           render={({ field }) => (
             <RadioGroup
               onChange={(e) => field.onChange(e)}
-              value={map.get("gender")}
               defaultValue={map.get("gender")}
             >
               <FormLabel marginTop="20px">Gender</FormLabel>
