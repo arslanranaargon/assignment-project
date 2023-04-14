@@ -80,7 +80,7 @@ export default function Header({
             color="white"
             marginLeft={linkMarginLeft}
           >
-            <Text fontSize="30px">Create a new Task</Text>
+            <Text fontSize="22px">Create a new Task</Text>
           </Link>
         )}
       </Flex>

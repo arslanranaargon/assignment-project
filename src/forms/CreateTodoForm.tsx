@@ -31,8 +31,7 @@ import ChakraFileUpload from "../components/ChakraFileUpload";
 import { generateID } from "../utils/generateId";
 import CurrentTaskContext from "../context/CurrentTaskContext";
 import { dateFormatter } from "../utils/dateFormatter";
-import Select from "react-select";
-import { optionList } from "../data/DropDownOptions";
+import "./form.css";
 
 const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -55,10 +54,6 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
   const { tasksArray, setTaskArray } = useContext(TaskContext);
 
   const map = new Map(Object.entries(currentTask));
-
-  function handleSelect(data: TaskProps) {
-    setSelectedOptions(data);
-  }
 
   const onSubmit = (data: TaskProps) => {
     const { startTime, endTime } = data;
@@ -146,7 +141,7 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
           )}
         </FormControl>
 
-        <Stack spacing={3} paddingTop="8">
+        <Stack spacing={3} paddingTop="8" backgroundColor="grey.800">
           <FormControl mt={4} id="timeEstimation" isRequired>
             <FormLabel>Country of origin</FormLabel>
 
@@ -154,32 +149,26 @@ const CreateTodoForm = ({ onClose, title }: ModaleProps) => {
               size="lg"
               {...register("country", { required: true })}
               defaultValue={map.get("country")}
+              className="key"
             >
-              <option value="Pakistan">Pakistan</option>
+              <option className="key" value="Pakistan">
+                Pakistan
+              </option>
 
-              <option value="England">England</option>
+              <option className="key" value="England">
+                England
+              </option>
 
-              <option value="France">France</option>
+              <option className="key" value="France">
+                France
+              </option>
 
-              <option value="Turkey">Turkey</option>
+              <option className="key" value="Turkey">
+                Turkey
+              </option>
             </SimpleSelect>
           </FormControl>
         </Stack>
-
-        <FormControl mt={4} id="colors" isRequired>
-          <FormLabel>Favourite Color</FormLabel>
-          <Select
-            options={optionList}
-            value={
-              selectedOptions && selectedOptions.length
-                ? selectedOptions
-                : currentTask?.colors
-            }
-            onChange={handleSelect}
-            isSearchable={true}
-            isMulti={true}
-          />
-        </FormControl>
 
         <Controller
           name="gender"

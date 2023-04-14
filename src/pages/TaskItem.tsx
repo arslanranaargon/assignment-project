@@ -48,24 +48,6 @@ const TaskItem = ({
           </Box>
         )}
         <HStack fontSize={fontSizeResponsive}>
-          <Text>Favourite Colors:</Text>
-
-          <ul>
-            {task?.colors?.length ? (
-              task?.colors.map((color: ColorProps, index: number) => (
-                <li
-                  key={`${task.id}-${color.value}-${index}`}
-                  style={{ display: "inline-block" }}
-                >{`${color.value}, `}</li>
-              ))
-            ) : (
-              <li key={1} style={{ display: "inline-block" }}>
-                no color selected
-              </li>
-            )}
-          </ul>
-        </HStack>
-        <HStack fontSize={fontSizeResponsive}>
           <Text>Gender:</Text>
           <Text>{task?.gender}</Text>
         </HStack>

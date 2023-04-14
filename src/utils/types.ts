@@ -3,8 +3,8 @@ import { MouseEventHandler, ReactNode } from "react";
 export interface TaskProps {
   id: string | number;
   description: string;
-  startTime: string;
-  endTime: string;
+  startTime: string | Date;
+  endTime: string| Date;
   timeEstimation: string;
   createdAt: string;
   updatedAt: string;

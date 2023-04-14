@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Card, Flex, Heading } from "@chakra-ui/react";
 import { TaskContext } from "../context/TaskContext";
 import CurrentTaskContext from "../context/CurrentTaskContext";
 import TaskItem from "./TaskItem";
@@ -22,9 +22,11 @@ const TaskList: React.FC<TaskListProps> = ({ openCreateTaskModal }) => {
   };
 
   return (
-    <>
+    <Card height="100vh" backgroundColor="green.800">
       <Flex justifyContent="center" mb={4} marginTop="100px">
-        <Heading as="h1">List of Tasks</Heading>
+        <Heading as="h1" textColor="whitesmoke">
+          List of Tasks
+        </Heading>
       </Flex>
       {tasksArray.map((task: TaskProps) => (
         <TaskItem
@@ -35,7 +37,7 @@ const TaskList: React.FC<TaskListProps> = ({ openCreateTaskModal }) => {
           handleDelete={handleDelete}
         />
       ))}
-    </>
+    </Card>
   );
 };
 

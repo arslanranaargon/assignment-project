@@ -15,6 +15,7 @@ function VerticalFlexCard({ children }: ReactNodeProps) {
       marginTop="40px"
       marginLeft={isLargeScreen ? 800 : 0}
       marginRight={isLargeScreen ? 800 : 0}
+      backgroundColor="gray.500"
     >
       <VStack
         alignItems="center"

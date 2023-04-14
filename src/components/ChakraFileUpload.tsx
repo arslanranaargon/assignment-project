@@ -15,7 +15,7 @@ interface ChakraFileUploadProps<T> {
   control: Control<T>;
   name: string;
   setPreviewUrl: (url: string | null) => void;
-  previewUrl: string;
+  previewUrl: string | null;
 }
 
 const ChakraFileUpload = <T,>({
@@ -62,7 +62,7 @@ const ChakraFileUpload = <T,>({
             />
           )}
         />
-        <Button onClick={() => document.getElementById("file")?.click()}>
+        <Button backgroundColor="gray.900" onClick={() => document.getElementById("file")?.click()}>
           Choose File
         </Button>
         {fileName && (
